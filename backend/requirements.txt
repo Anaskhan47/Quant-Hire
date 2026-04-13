@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+httpx
+pydantic
+pydantic-settings
+python-dotenv
+sqlalchemy
+alembic
+scikit-learn
+numpy
+sentence-transformers
+tenacity
+pytest
+sentry-sdk[fastapi]
+pypdf
+python-multipart

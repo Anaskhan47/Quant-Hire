@@ -1,0 +1,26 @@
+{
+  "LogisticRegression": {
+    "accuracy": 0.6562,
+    "precision": 0.6761,
+    "recall": 0.6,
+    "f1": 0.6358,
+    "roc_auc": 0.7053,
+    "train_time_s": 0.02
+  },
+  "RandomForest": {
+    "accuracy": 0.625,
+    "precision": 0.6613,
+    "recall": 0.5125,
+    "f1": 0.5775,
+    "roc_auc": 0.6834,
+    "train_time_s": 0.71
+  },
+  "XGBoost": {
+    "accuracy": 0.625,
+    "precision": 0.6351,
+    "recall": 0.5875,
+    "f1": 0.6104,
+    "roc_auc": 0.67,
+    "train_time_s": 0.13
+  }
+}

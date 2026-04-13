@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment variables
+.env
+backend/.env
+
+# Model/ML artifacts
+*.pkl
+*.joblib
+*.h5
+*.pt
+*.pth
+pipeline/*.pkl
+pipeline/*.joblib
+
+# Database
+*.db
+*.sqlite3
+
+# Logs & output
+*.log
+out.txt
+test_out.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node (just in case)
+node_modules/
+dist/
+.next/
