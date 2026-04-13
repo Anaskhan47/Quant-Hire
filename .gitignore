@@ -33,6 +33,9 @@ pipeline/*.joblib
 *.db
 *.sqlite3
 
+# Large data files (>50MB - use Git LFS if needed)
+Data/Resume.csv
+
 # Logs & output
 *.log
 out.txt
