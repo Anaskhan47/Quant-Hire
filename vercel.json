@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "name": "resume-ai-analyzer-frontend",
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}

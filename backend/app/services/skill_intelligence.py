@@ -13,7 +13,11 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 log = logging.getLogger("backend.skill_engine")
 
-STRONG_KEYWORDS = ["deployed", "production", "scalable", "api", "real-time", "led", "architected", "optimized"]
+STRONG_KEYWORDS = [
+    "deployed", "production", "scalable", "api", "real-time", "led", "architected", "optimized",
+    "managed", "built", "designed", "implemented", "cloud", "distributed", "automated",
+    "streamlined", "accelerated", "leadership", "mentored", "agile", "devops"
+]
 
 class SkillIntelligenceEngine:
     def __init__(self):

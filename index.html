@@ -864,6 +864,14 @@ function initParticles() {}
 
 draw();
 
+// ===== CONFIGURATION =====
+// IMPORTANT: Set this to your deployed Backend URL (e.g., https://resume-api.onrender.com)
+const PRODUCTION_BACKEND_URL = ""; 
+
+const API_BASE_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+  ? "http://localhost:8000"
+  : (PRODUCTION_BACKEND_URL || window.location.origin);
+
 // ===== NAVIGATION =====
 function showPage(id) { 
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); 
@@ -896,7 +904,7 @@ CANDIDATES.forEach((c,i) => {
 async function checkBackendHealth() {
   const indicators = document.querySelectorAll('.sys-dot');
   try {
-    const res = await fetch("/health");
+    const res = await fetch(`${API_BASE_URL}/health`);
     if(res.ok) {
       indicators.forEach(dot => { dot.style.background = 'var(--green)'; dot.style.boxShadow = '0 0 10px var(--green)'; });
     } else {
@@ -979,7 +987,7 @@ async function runEvaluation() {
       resume: resumeInput,
       job_description: jdInput
     };
-    const apiPromise = fetch("/v2/predict", {
+    const apiPromise = fetch(`${API_BASE_URL}/v2/predict`, {
       method: "POST", 
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
