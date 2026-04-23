@@ -1,7 +1,20 @@
 {
   "version": 2,
   "name": "quanthire",
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/server.py" }
+  "builds": [
+    { "src": "serverless/server.py", "use": "@vercel/python" },
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "css/**", "use": "@vercel/static" },
+    { "src": "js/**", "use": "@vercel/static" },
+    { "src": "pipeline/artifacts/**", "use": "@vercel/static" },
+    { "src": "logo.svg", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "serverless/server.py" },
+    { "src": "/css/(.*)", "dest": "/css/$1" },
+    { "src": "/js/(.*)", "dest": "/js/$1" },
+    { "src": "/pipeline/artifacts/(.*)", "dest": "/pipeline/artifacts/$1" },
+    { "src": "/logo.svg", "dest": "/logo.svg" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
