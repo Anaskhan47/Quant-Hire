@@ -428,6 +428,63 @@
     color: var(--text-muted); 
     max-width: 80ch;
   }
+
+  /* ===== RESPONSIVE DESIGN ===== */
+  @media (max-width: 1024px) {
+    nav { padding: 0 24px; }
+    .hero h1 { font-size: clamp(3rem, 10vw, 5rem); }
+    .trust-indicators { gap: 30px !important; padding: 24px 32px !important; }
+  }
+
+  @media (max-width: 768px) {
+    nav { height: 56px; padding: 0 16px; }
+    .nav-links { display: none; } /* Hide links on mobile for simplicity */
+    
+    .hero { padding: 80px 20px 40px; }
+    .hero-badge { font-size: 8px; padding: 4px 12px; }
+    .hero-sub { font-size: 1rem; margin: 24px auto; }
+    
+    .trust-indicators { 
+      flex-direction: column; 
+      gap: 20px !important; 
+      padding: 24px !important; 
+      width: 90%;
+      margin-top: 60px !important;
+    }
+    
+    .pipeline-window { padding: 40px 0; margin: 60px 0; }
+    .pipeline-steps { 
+      flex-wrap: wrap; 
+      gap: 10px; 
+      padding: 0 20px;
+    }
+    .pip-step { font-size: 11px; padding: 10px 16px; }
+    .pip-arrow { display: none; }
+
+    .stats-strip { 
+      grid-template-columns: 1fr 1fr; 
+      padding: 40px 20px; 
+      gap: 24px;
+    }
+    .stat-number { font-size: 2.5rem; }
+    
+    .section { padding: 60px 20px; }
+    .section-title { font-size: 2.5rem; }
+    
+    .input-grid { grid-template-columns: 1fr; }
+    .analyze-input { padding: 40px 16px; }
+    
+    .results-top { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 2.8rem; }
+    .stats-strip { grid-template-columns: 1fr; }
+    .stat-number { font-size: 3rem; }
+    .run-btn { padding: 14px; font-size: 0.9rem; }
+    .candidate-card { padding: 16px; }
+    .cand-score { font-size: 1.5rem; }
+  }
 </style>
 </head>
 <body>
@@ -479,7 +536,7 @@
     </div>
 
     <!-- TRUST INDICATORS -->
-    <div style="position:relative; z-index:2; margin-top:100px; display:inline-flex; gap:60px; justify-content:center; padding:32px 64px; background:linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03)); border:1px solid rgba(255,255,255,0.2); border-radius:32px; backdrop-filter:blur(30px); box-shadow:0 30px 60px rgba(0,0,0,0.6), 0 0 40px rgba(16,185,129,0.15); border-bottom: 1px solid rgba(16,185,129,0.3);">
+    <div class="trust-indicators" style="position:relative; z-index:2; margin-top:100px; display:inline-flex; gap:60px; justify-content:center; padding:32px 64px; background:linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03)); border:1px solid rgba(255,255,255,0.2); border-radius:32px; backdrop-filter:blur(30px); box-shadow:0 30px 60px rgba(0,0,0,0.6), 0 0 40px rgba(16,185,129,0.15); border-bottom: 1px solid rgba(16,185,129,0.3);">
         <div style="text-align:left; display:flex; align-items:start; gap:12px;">
             <div style="font-size:20px; color:var(--emerald);">🛡️</div>
             <div>
