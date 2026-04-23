@@ -10,7 +10,7 @@ os.environ.setdefault("MODEL_DIR", str(ROOT / "pipeline" / "artifacts"))
 # ── Imports ───────────────────────────────────────────────────────────────────
 import uuid
 import traceback
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, UploadFile, File, HTTPException, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from mangum import Mangum
 
@@ -20,8 +20,7 @@ from backend.app.models.loader import model_loader
 from backend.app.utils.extractor import text_extractor
 
 # ── FastAPI App ───────────────────────────────────────────────────────────────
-# We use root_path="/api" so that the routes match the /api/* requests from Vercel
-app = FastAPI(title="QuantHire API", version="4.6.1", root_path="/api")
+app = FastAPI(title="QuantHire API", version="4.6.1")
 
 app.add_middleware(
     CORSMiddleware,
@@ -31,8 +30,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/predict", response_model=PredictResponse)
-@app.post("/v2/predict", response_model=PredictResponse)
+# We use a router with /api prefix AND direct routes to be safe
+api_router = APIRouter(prefix="/api")
+
+@api_router.post("/predict", response_model=PredictResponse)
+@api_router.post("/v2/predict", response_model=PredictResponse)
 async def predict(request: PredictRequest):
     """Main AI scoring endpoint."""
     rid = f"REQ-{uuid.uuid4().hex[:6].upper()}"
@@ -49,7 +51,7 @@ async def predict(request: PredictRequest):
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Pipeline error (ID: {rid}): {str(e)}")
 
-@app.post("/extract")
+@api_router.post("/extract")
 async def extract_text(file: UploadFile = File(...)):
     """Extract plain text from an uploaded PDF or TXT file."""
     try:
@@ -62,7 +64,7 @@ async def extract_text(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Extraction failed: {str(e)}")
 
-@app.get("/health")
+@api_router.get("/health")
 def health():
     """Liveness + readiness check."""
     ml_ok = model_loader.ml_model is not None
@@ -72,6 +74,21 @@ def health():
         "system_status": "ok" if ml_ok else "degraded",
         "engine_v": "4.6.1-prod",
     }
+
+@api_router.get("/")
+def api_root():
+    return {"message": "QuantHire API Active", "version": "4.6.1"}
+
+app.include_router(api_router)
+
+# Fallback aliases for root-level calls (some Vercel environments strip the prefix)
+@app.get("/health")
+def health_alias():
+    return health()
+
+@app.get("/")
+def root_alias():
+    return api_root()
 
 # Vercel handler
 handler = Mangum(app)
