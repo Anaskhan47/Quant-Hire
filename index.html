@@ -508,8 +508,8 @@
     Quant<span style="color:var(--emerald)">Hire</span>
   </div>
   <div class="nav-links">
-    <a onclick="document.getElementById('capabilities').scrollIntoView({behavior:'smooth'})">Capabilities</a>
-    <a onclick="document.getElementById('candidates-section').scrollIntoView({behavior:'smooth'})">Pipeline</a>
+    <a onclick="showPage('landing'); setTimeout(() => document.getElementById('capabilities').scrollIntoView({behavior:'smooth'}), 10)">Capabilities</a>
+    <a onclick="showPage('landing'); setTimeout(() => document.getElementById('pipeline-section').scrollIntoView({behavior:'smooth'}), 10)">Pipeline</a>
   </div>
 </nav>
 
@@ -624,7 +624,7 @@
     </div>
   </div>
 
-  <div class="queue-section" id="candidates-section">
+  <div class="queue-section" id="pipeline-section">
     <div class="section-label" style="text-align: center;">// CANDIDATE PIPELINE</div>
     <h2 class="section-title" style="text-align: center; margin-bottom: 40px;">Active Queue</h2>
     <div class="candidates-grid" id="candidates-grid"></div>
