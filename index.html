@@ -222,7 +222,9 @@
   .pip-title {
     font-family: var(--font-mono); font-size: 13px; color: var(--text-dim);
     letter-spacing: 0.15em; text-transform: lowercase; white-space: nowrap;
+    cursor: pointer; transition: color 0.2s;
   }
+  .pip-title:hover { color: var(--emerald); }
   .pipeline-steps {
     display: flex; align-items: center; gap: clamp(8px, 1.8vw, 20px); 
     flex-wrap: nowrap; justify-content: center; 
@@ -569,7 +571,7 @@
               <div class="pip-dot" style="background:#febc2e;"></div>
               <div class="pip-dot" style="background:#28c840;"></div>
             </div>
-            <span class="pip-title">recruitiq · ml-pipeline · live</span>
+            <span class="pip-title" onclick="document.getElementById('pipeline-section').scrollIntoView({behavior:'smooth'})">recruitiq · ml-pipeline · live</span>
           </div>
         </div>
         <div class="pipeline-steps" id="hero-pipeline">
