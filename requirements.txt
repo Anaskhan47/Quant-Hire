@@ -10,7 +10,7 @@ numpy
 cohere
 tenacity
 sentry-sdk[fastapi]
-pypdf
+pymupdf
 python-multipart
 groq
 joblib
