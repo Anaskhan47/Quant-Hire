@@ -34,7 +34,7 @@ class ScoringPipeline:
             req_match_pct = (len([s for s in req_skills if s.proficiency >= 0.5]) / len(req_skills)) * 100 if req_skills else 100.0
             opt_match_pct = max(0.0, 100.0 - req_match_pct)
             
-            emb_score, _ = skill_engine.get_embedding_score(resume, jd)
+            emb_score, _ = await skill_engine.get_embedding_score(resume, jd)
             sect_score = skill_engine.get_section_similarity(resume, jd)
             keyword_score = skill_engine.get_keyword_strength(resume)
             exp_fit = min(1.0, skill_engine.extract_experience(resume) / max(1, skill_engine.extract_experience(jd)))

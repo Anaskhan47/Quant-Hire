@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     GROQ_API_KEY: str = ""
     ANTHROPIC_API_KEY: str = ""
     OPENAI_API_KEY: str = ""
+    COHERE_API_KEY: str = ""
     
     # LLM Provider
     LLM_PROVIDER: str = "groq"
@@ -18,7 +19,7 @@ class Settings(BaseSettings):
         return self.GROQ_API_KEY
     
     # Model Configuration
-    MODEL_DIR: str = "../pipeline/artifacts"
+    MODEL_DIR: str = "../pipeline/artifacts"  # overridden by api/index.py at runtime
     EMBEDDING_MODEL: str = "sentence-transformers/all-MiniLM-L6-v2"
     LLM_MODEL: str = "llama-3.1-8b-instant"
     MAX_TEXT_LEN: int = 5000
@@ -29,7 +30,9 @@ class Settings(BaseSettings):
         "http://127.0.0.1:3000",
         "http://localhost:5173",
         "http://localhost:5174",
-        "null"
+        "null",
+        # Vercel production — wildcard handled in api/index.py with allow_origins=["*"]
+        "https://*.vercel.app",
     ]
     
     # 🎯 CATEGORIZED SKILL WEIGHTS (Systems Engineer Calibration)

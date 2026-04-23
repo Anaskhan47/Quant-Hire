@@ -1,4 +1,5 @@
 import re
+import cohere
 import logging
 import json
 import asyncio
@@ -22,6 +23,13 @@ STRONG_KEYWORDS = [
 class SkillIntelligenceEngine:
     def __init__(self):
         self.catalog: Set[str] = settings.SKILL_CATALOG
+        self._cohere_client = None
+
+    @property
+    def cohere(self):
+        if self._cohere_client is None:
+            self._cohere_client = cohere.AsyncClient(api_key=settings.COHERE_API_KEY)
+        return self._cohere_client
 
     def clean_text(self, text: str) -> str:
         if not isinstance(text, str): return ""
@@ -91,15 +99,29 @@ class SkillIntelligenceEngine:
         
         return graph, True
 
-    def get_embedding_score(self, r_text: str, j_text: str) -> Tuple[float, bool]:
-        if not model_loader.emb_model: return 0.5, True
+    async def get_embedding_score(self, r_text: str, j_text: str) -> Tuple[float, bool]:
         r_c, j_c = self.clean_text(r_text), self.clean_text(j_text)
         if not r_c or not j_c: return 0.0, False
+        
         try:
-            r_emb = model_loader.emb_model.encode([r_c], normalize_embeddings=True)
-            j_emb = model_loader.emb_model.encode([j_c], normalize_embeddings=True)
-            return float(np.clip(np.dot(r_emb[0], j_emb[0]), 0.0, 1.0)), False
-        except Exception: return 0.5, True
+            # Use Cohere V3 Embeddings for maximum semantic accuracy
+            response = await self.cohere.embed(
+                texts=[r_c, j_c],
+                model="embed-english-v3.0",
+                input_type="search_document"
+            )
+            
+            embeddings = response.embeddings
+            # Cosine similarity between the two vectors
+            dot_product = np.dot(embeddings[0], embeddings[1])
+            norm_r = np.linalg.norm(embeddings[0])
+            norm_j = np.linalg.norm(embeddings[1])
+            
+            score = dot_product / (norm_r * norm_j)
+            return float(np.clip(score, 0.0, 1.0)), False
+        except Exception as e:
+            log.error(f"Cohere embedding failure: {e}")
+            return 0.5, True
 
     def get_keyword_strength(self, r_text: str) -> float:
         clean = self.clean_text(r_text)

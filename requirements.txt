@@ -1,18 +1,17 @@
+# QuantHire — Vercel Production Dependencies
 fastapi
 uvicorn[standard]
 httpx
 pydantic
 pydantic-settings
 python-dotenv
-sqlalchemy
-alembic
 scikit-learn
 numpy
-sentence-transformers
+cohere
 tenacity
-pytest
 sentry-sdk[fastapi]
 pypdf
 python-multipart
 groq
-gunicorn
+joblib
+mangum

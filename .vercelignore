@@ -1,0 +1,50 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+backend/.venv/
+
+# ── Databases ─────────────────────────────────────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+resume_ai.db
+backend/resume_ai.db
+
+# ── Training data & notebooks ─────────────────────────────────────────────────
+Data/
+pipeline/train_pipeline.py
+*.ipynb
+
+# ── Tests ─────────────────────────────────────────────────────────────────────
+test.py
+test_v2.py
+test_out.txt
+out.txt
+backend/tests/
+
+# ── Dev/CI artifacts ──────────────────────────────────────────────────────────
+.pytest_cache/
+.git/
+*.log
+*.bak
+.env.example
+
+# ── Unused legacy files ───────────────────────────────────────────────────────
+railway.json
+RecruitIQ.jsx
+backend/app.py
+backend/engine.py
+backend/prompt_template.txt
+{css,js}/
+
+# ── OS junk ───────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db

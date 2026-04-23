@@ -28,6 +28,8 @@ backend/.env
 *.pth
 pipeline/*.pkl
 pipeline/*.joblib
+!pipeline/artifacts/*.joblib
+!pipeline/artifacts/metrics.json
 
 # Database
 *.db

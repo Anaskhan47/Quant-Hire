@@ -8,7 +8,7 @@ sqlalchemy
 alembic
 scikit-learn
 numpy
-sentence-transformers
+cohere
 tenacity
 pytest
 sentry-sdk[fastapi]

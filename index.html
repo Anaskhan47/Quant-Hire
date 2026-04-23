@@ -865,12 +865,11 @@ function initParticles() {}
 draw();
 
 // ===== CONFIGURATION =====
-// IMPORTANT: Set this to your deployed Backend URL (e.g., https://resume-api.onrender.com)
-const PRODUCTION_BACKEND_URL = ""; 
-
+// On Vercel: all /api/* requests are routed to the Python serverless function.
+// Locally: FastAPI dev server runs at localhost:8000 (routes at root, no /api prefix).
 const API_BASE_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
   ? "http://localhost:8000"
-  : (PRODUCTION_BACKEND_URL || window.location.origin);
+  : window.location.origin + "/api";
 
 // ===== NAVIGATION =====
 function showPage(id) { 

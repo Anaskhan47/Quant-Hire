@@ -2,7 +2,6 @@ import logging
 import joblib
 from pathlib import Path
 from typing import Optional, Any
-from sentence_transformers import SentenceTransformer
 from ..core.config import settings
 
 log = logging.getLogger("backend.models")
@@ -23,7 +22,7 @@ class ModelSingleton:
         self.ml_model: Optional[Any] = None
         self.scaler: Optional[Any] = None
         self.tfidf: Optional[Any] = None
-        self.emb_model: Optional[SentenceTransformer] = None
+        self.emb_model: Optional[Any] = None
         
         self.load_artifacts()
         self._initialized = True
@@ -41,10 +40,7 @@ class ModelSingleton:
         except Exception as e:
             log.warning(f"Could not load ML artifacts: {e}. Fallback score will be used.")
 
-        try:
-            self.emb_model = SentenceTransformer(settings.EMBEDDING_MODEL)
-            log.info(f"Successfully loaded {settings.EMBEDDING_MODEL} singleton")
-        except Exception as e:
-            log.error(f"CRITICAL: Failed to load embedding model: {e}")
+        # Embedding model removed for Cohere API (Vercel optimization)
+        pass
 
 model_loader = ModelSingleton()
