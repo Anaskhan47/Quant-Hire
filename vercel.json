@@ -3,6 +3,10 @@
   "name": "quanthire",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index.py" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/css/(.*)", "destination": "/css/$1" },
+    { "source": "/js/(.*)", "destination": "/js/$1" },
+    { "source": "/pipeline/artifacts/(.*)", "destination": "/pipeline/artifacts/$1" },
+    { "source": "/logo.svg", "destination": "/logo.svg" },
+    { "source": "/((?!api|css|js|pipeline|logo.svg).*)", "destination": "/index.html" }
   ]
 }
