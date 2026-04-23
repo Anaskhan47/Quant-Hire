@@ -81,14 +81,5 @@ def api_root():
 
 app.include_router(api_router)
 
-# Fallback aliases for root-level calls (some Vercel environments strip the prefix)
-@app.get("/health")
-def health_alias():
-    return health()
-
-@app.get("/")
-def root_alias():
-    return api_root()
-
 # Vercel handler
 handler = Mangum(app)
